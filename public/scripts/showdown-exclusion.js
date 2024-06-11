@@ -32,9 +32,31 @@ export const markdownExclusionExt = () => {
     }
 
     const replaceRegex = new RegExp(`^(${escapedExclusions.join('|')})\n`, 'gm');
+    const leaveBackslashes = new RegExp(`\\\\\\((.*?)\\\\\\)`, 'gm');
+    const leaveBackslashes2 = new RegExp(`\\\\\\[(.*?)\\\\\\]`, 'gms');
+
     return [{
         type: 'lang',
         regex: replaceRegex,
         replace: ((match) => match.replace(replaceRegex, `\u0000${match} \n`)),
-    }];
+    },
+    {
+        type: 'lang',
+        regex: leaveBackslashes,
+        replace: ((match, inside, ...args) => {
+            const res = `\\\\(${inside}\\\\)`
+            // console.error({ res, inside, match, args })
+            return res;
+        }),
+    },
+    {
+        type: 'lang',
+        regex: leaveBackslashes2,
+        replace: ((match, inside, ...args) => {
+            const res = `\\\\[${inside}\\\\]`
+            // console.error({ res, inside, match, args })
+            return res;
+        }),
+    }
+    ];
 };
