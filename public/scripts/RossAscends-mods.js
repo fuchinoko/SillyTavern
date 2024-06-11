@@ -982,6 +982,15 @@ export function initRossMods() {
             return;
         }
 
+
+        // alt+a create new chat
+        if (event.altKey && event.key == 'a') {
+            console.log('hey')
+            event.preventDefault();
+            $('#option_start_new_chat').trigger('click');
+            $('#dialogue_popup_ok').trigger('click')
+            return;
+        }
         //Enter to send when send_textarea in focus
         if (document.activeElement == hotkeyTargets['send_textarea']) {
             const sendOnEnter = shouldSendOnEnter();
