@@ -692,13 +692,17 @@ export function reloadMarkdownProcessor(render_formulas = false) {
             simpleLineBreaks: true,
             strikethrough: true,
             disableForced4SpacesIndentedSublists: true,
+            backslashEscapesHTMLTags: false,
             extensions: [
                 showdownKatex(
                     {
                         delimiters: [
                             { left: '$$', right: '$$', display: true, asciimath: false },
                             { left: '$', right: '$', display: false, asciimath: true },
+                            { left: '\\\(', right: '\\\)', display: true, asciimath: false },
+                            { left: '\\[', right: '\\]', display: true, asciimath: false },
                         ],
+                        throwOnError: true,
                     },
                 )],
         });
