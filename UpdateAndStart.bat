@@ -5,7 +5,8 @@ if %errorlevel% neq 0 (
     echo Git is not installed on this system. Skipping update.
     echo If you installed with a zip file, you will need to download the new zip and install it manually.
 ) else (
-    call git pull --rebase --autostash
+    call git pull upstream release --rebase --autostash
+    @REM call git pull --rebase --autostash
     if %errorlevel% neq 0 (
         REM incase there is still something wrong
         echo There were errors while updating. Please download the latest version manually.
