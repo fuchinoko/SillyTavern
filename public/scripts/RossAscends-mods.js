@@ -942,7 +942,6 @@ export function initRossMods() {
     function processHotkeys(event) {
         // alt+a create new chat
         if ((event.altKey && event.key == 'a') || (event.altKey && event.key == 'ф')) {
-            console.log('hey')
             event.preventDefault();
             $('#option_start_new_chat').trigger('click');
             $('#dialogue_popup_ok').trigger('click')
