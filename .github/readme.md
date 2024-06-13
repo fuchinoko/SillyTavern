@@ -1,3 +1,6 @@
+## my changes 
+fix render formulas and hotkey alt+a to create new chat
+
 <a name="readme-top"></a>
 
 English | [中文](readme-zh_cn.md) | [日本語](readme-ja_jp.md) | [Русский](readme-ru_ru.md)
