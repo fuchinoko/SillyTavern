@@ -947,6 +947,12 @@ export function initRossMods() {
             $('#dialogue_popup_ok').trigger('click')
             return;        
         }
+        if ((event.altKey && event.key == 's') || (event.altKey && event.key == 'ы')) {
+            event.preventDefault();
+            $('#option_select_chat').trigger('click')
+            return;        
+        }
+        
         //Enter to send when send_textarea in focus
         if (document.activeElement == hotkeyTargets['send_textarea']) {
             const sendOnEnter = shouldSendOnEnter();
