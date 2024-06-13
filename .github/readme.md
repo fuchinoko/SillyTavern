@@ -1,3 +1,6 @@
+## my changes 
+fix render formulas and hotkey alt+a to create new chat
+
 <a name="readme-top"></a>
 
 ![][cover]
