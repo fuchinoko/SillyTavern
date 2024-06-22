@@ -82,12 +82,4 @@ else
     update_and_merge "origin"
 fi
 
-echo "Installing npm packages and starting server"
-export NODE_ENV=production
-npm install --no-audit --no-fund --quiet --omit=dev
-node server.js "$@"
-
-popd > /dev/null
-
-# Pause equivalent in bash (press any key to continue)
-read -n 1 -s -r -p "Press any key to continue..."
+source start.sh
