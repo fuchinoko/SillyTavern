@@ -77,6 +77,14 @@ if [[ "$TARGET_BRANCH" == "release" ]]; then
     # Fetch from upstream and merge/rebase updates
     update_and_merge "upstream"
 
+    # Push to origin 
+    echo "Pushing changes to origin"
+    git push origin
+    if [[ $? -ne 0 ]]; then
+        echo "There were errors while pushing to origin. Please check manually."
+        exit 1
+    fi
+
 else
     # Default behavior for non-release branches or if no choice was made for release branch
     update_and_merge "origin"
