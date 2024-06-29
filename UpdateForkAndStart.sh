@@ -71,11 +71,11 @@ update_and_merge() {
 }
 
 if [[ "$TARGET_BRANCH" == "release" ]]; then
-    # Fetch from upstream and merge/rebase updates
-    update_and_merge "upstream"
-
     # Fetch from origin and merge/rebase updates
     update_and_merge "origin"
+
+    # Fetch from upstream and merge/rebase updates
+    update_and_merge "upstream"
 
 else
     # Default behavior for non-release branches or if no choice was made for release branch
