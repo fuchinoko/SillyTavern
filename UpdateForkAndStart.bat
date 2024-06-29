@@ -75,15 +75,6 @@ echo Staying on the current branch
 
 :update
 if "%TARGET_BRANCH%" == "release" (
-    REM Fetch from upstream and merge/rebase updates
-    git fetch upstream && echo Merging updates from 'upstream' && git merge upstream/%TARGET_BRANCH%
-
-    REM Check for errors after merging from upstream
-    if %errorlevel% neq 0 (
-        echo There were errors while merging from upstream. Please check manually.
-        goto end
-    )
-
     REM Fetch from origin and merge/rebase updates
     git fetch origin && echo Merging updates from 'origin' && git merge origin/%TARGET_BRANCH%
 
@@ -93,6 +84,14 @@ if "%TARGET_BRANCH%" == "release" (
         goto end
     )
 
+    REM Fetch from upstream and merge/rebase updates
+    git fetch upstream && echo Merging updates from 'upstream' && git merge upstream/%TARGET_BRANCH%
+
+    REM Check for errors after merging from upstream
+    if %errorlevel% neq 0 (
+        echo There were errors while merging from upstream. Please check manually.
+        goto end
+    )
     goto install
 )
 
