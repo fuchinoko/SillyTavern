@@ -92,6 +92,15 @@ if "%TARGET_BRANCH%" == "release" (
         echo There were errors while merging from upstream. Please check manually.
         goto end
     )
+
+    REM Pushing changes to origin
+    echo Pushing changes to origin
+    git push origin
+    if %errorlevel% neq 0 (
+        echo There were errors while pushing to origin. Please check manuall
+        goto end
+    )
+
     goto install
 )
 
