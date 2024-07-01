@@ -1,6 +1,8 @@
 ## my changes 
-fix render formulas and hotkey alt+a to create new chat
-
+- fix render formulas
+- hotkey alt+a to create new chat
+- hotkey alt+s to select from old chats
+- upgraded UpdateForkAndStart scripts
 <a name="readme-top"></a>
 
 ![][cover]
