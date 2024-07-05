@@ -42,7 +42,7 @@ if NOT "!AUTO_SWITCH!"=="" (
         SET TARGET_BRANCH=release
         goto update
     )
-    
+
     echo Auto-switching defined to stay on current branch
     goto update
 )
@@ -74,18 +74,39 @@ if /i "!CHOICE!"=="r" (
 echo Staying on the current branch
 
 :update
-REM Checking for 'upstream' remote
-git remote | findstr "upstream" > nul
-if %errorlevel% equ 0 (
-    echo Updating and rebasing against 'upstream'
-    git fetch upstream
-    git rebase upstream/%TARGET_BRANCH% --autostash
+if "%TARGET_BRANCH%" == "release" (
+    REM Fetch from origin and merge/rebase updates
+    git fetch origin && echo Merging updates from 'origin' && git merge origin/%TARGET_BRANCH%
+
+    REM Check for errors after merging from origin
+    if %errorlevel% neq 0 (
+        echo There were errors while merging from origin. Please check manually.
+        goto end
+    )
+
+    REM Fetch from upstream and merge/rebase updates
+    git fetch upstream && echo Merging updates from 'upstream' && git merge upstream/%TARGET_BRANCH%
+
+    REM Check for errors after merging from upstream
+    if %errorlevel% neq 0 (
+        echo There were errors while merging from upstream. Please check manually.
+        goto end
+    )
+
+    REM Pushing changes to origin
+    echo Pushing changes to origin
+    git push origin
+    if %errorlevel% neq 0 (
+        echo There were errors while pushing to origin. Please check manuall
+        goto end
+    )
+
     goto install
 )
 
-echo Updating and rebasing against 'origin'
-git pull --rebase --autostash origin %TARGET_BRANCH%
-
+REM Default behavior for non-release branches or if no choice was made for release branch
+echo Fetching updates from 'origin'
+git fetch origin && echo Merging updates against 'origin' && git merge origin/%TARGET_BRANCH%
 
 :install
 if %errorlevel% neq 0 (
