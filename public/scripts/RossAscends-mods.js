@@ -956,9 +956,34 @@ export function initRossMods() {
         if ((event.altKey && event.key == 'a') || (event.altKey && event.key == 'ф')) {
             event.preventDefault();
             $('#option_start_new_chat').trigger('click');
-            $('#dialogue_popup_ok').trigger('click');
+            $('.popup-button-ok').trigger('click');
             return;
         }
+
+        // alt+a create new chat and create old one
+        if ((event.shiftKey && event.altKey && event.key === 'A') || (event.shiftKey && event.altKey && event.key === 'Ф')) {
+            event.preventDefault();
+
+            $('#option_start_new_chat').trigger('click');
+            $('#del_chat_checkbox').trigger('click');
+            $('.popup-button-ok').trigger('click');
+
+            return;
+        }
+
+        // select chat
+        if ((event.altKey && event.key == 's') || (event.altKey && event.key == 'ы')) {
+            event.preventDefault();
+            $('#option_select_chat').trigger('click')
+            return;
+        }
+        // delete message
+        if ((event.altKey && event.key == 'x') || (event.altKey && event.key == 'ч')) {
+            event.preventDefault();
+            $('#option_delete_mes').trigger('click')
+            return;
+        }
+
         //Enter to send when send_textarea in focus
         if (document.activeElement == hotkeyTargets['send_textarea']) {
             const sendOnEnter = shouldSendOnEnter();
