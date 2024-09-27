@@ -979,17 +979,21 @@ export function initRossMods() {
         if ((event.altKey && event.key == 'a') || (event.altKey && event.key == 'ф')) {
             event.preventDefault();
             $('#option_start_new_chat').trigger('click');
-            $('.popup-button-ok').trigger('click');
+            setTimeout(() => {
+                $('.popup-button-ok').trigger('click')
+            }, 1)
             return;
         }
 
-        // alt+a create new chat and create old one
+        // alt+a create new chat and delete old one
         if ((event.shiftKey && event.altKey && event.key === 'A') || (event.shiftKey && event.altKey && event.key === 'Ф')) {
             event.preventDefault();
 
             $('#option_start_new_chat').trigger('click');
-            $('#del_chat_checkbox').trigger('click');
-            $('.popup-button-ok').trigger('click');
+            setTimeout(() => {
+                $('#del_chat_checkbox').trigger('click');
+                $('.popup-button-ok').trigger('click');
+            }, 1)
 
             return;
         }
