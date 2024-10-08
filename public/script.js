@@ -750,7 +750,7 @@ export function reloadMarkdownProcessor(render_formulas = false) {
                             { left: '$$', right: '$$', display: true, asciimath: false },
                             { left: '$', right: '$', display: false, asciimath: true },
                             { left: '\\\(', right: '\\\)', display: true, asciimath: false },
-                            // { left: '\\[', right: '\\]', display: true, asciimath: false },
+                            { left: '\\[', right: '\\]', display: true, asciimath: false },
                             // { left: '\[\n', right: '\n\]', display: true, asciimath: false },
                             // { left: '\(\n', right: '\n\)', display: true, asciimath: false },
                         ],
@@ -2014,8 +2014,8 @@ export function messageFormatting(mes, ch_name, isSystem, isUser, messageId) {
         mes = mes.replaceAll(/\\\[\n\s*\\begin{align\*}/g, '\n```latex\n\\begin{aligned}');
         mes = mes.replaceAll(/\\end{align\*}\n\s*\\\]/g, ' \\end{aligned}\n```');
 
-        mes = mes.replaceAll('\\[\n', '\n```latex\n');
-        mes = mes.replaceAll('\\]', ' \n```');
+        mes = mes.replaceAll(/\\\[\n\s*/g, '\n```latex\n');
+        mes = mes.replaceAll(/\n\s*\\\]/g, ' \n```');
 
         // mes = mes.replaceAll('\\(\n\\begin{align*}', '\n```latex\n\\begin{aligned}');
         // mes = mes.replaceAll('\\end{align*}\n\\)', ' \\end{aligned}\n```');
