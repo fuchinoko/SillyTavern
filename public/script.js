@@ -731,13 +731,15 @@ async function getClientVersion() {
 }
 
 export function reloadMarkdownProcessor(render_formulas = false) {
+    console.error({ showdownKatex })
     if (render_formulas) {
         converter = new showdown.Converter({
             emoji: true,
             underline: true,
             tables: true,
             parseImgDimensions: true,
-            simpleLineBreaks: true,
+            // simpleLineBreaks: true, otherwise katex can't handle it
+            simpleLineBreaks: false,
             strikethrough: true,
             disableForced4SpacesIndentedSublists: true,
             backslashEscapesHTMLTags: false,
@@ -748,7 +750,9 @@ export function reloadMarkdownProcessor(render_formulas = false) {
                             { left: '$$', right: '$$', display: true, asciimath: false },
                             { left: '$', right: '$', display: false, asciimath: true },
                             { left: '\\\(', right: '\\\)', display: true, asciimath: false },
-                            { left: '\\[', right: '\\]', display: true, asciimath: false },
+                            // { left: '\\[', right: '\\]', display: true, asciimath: false },
+                            // { left: '\[\n', right: '\n\]', display: true, asciimath: false },
+                            // { left: '\(\n', right: '\n\)', display: true, asciimath: false },
                         ],
                         throwOnError: true,
                     },
@@ -2007,8 +2011,22 @@ export function messageFormatting(mes, ch_name, isSystem, isUser, messageId) {
             mes = mes.replace(/\ufffe/g, '"');
         }
 
-        mes = mes.replaceAll('\\begin{align*}', '$$');
-        mes = mes.replaceAll('\\end{align*}', '$$');
+        mes = mes.replaceAll(/\\\[\n\s*\\begin{align\*}/g, '\n```latex\n\\begin{aligned}');
+        mes = mes.replaceAll(/\\end{align\*}\n\s*\\\]/g, ' \\end{aligned}\n```');
+
+        mes = mes.replaceAll('\\[\n', '\n```latex\n');
+        mes = mes.replaceAll('\\]', ' \n```');
+
+        // mes = mes.replaceAll('\\(\n\\begin{align*}', '\n```latex\n\\begin{aligned}');
+        // mes = mes.replaceAll('\\end{align*}\n\\)', ' \\end{aligned}\n```');
+        // mes = mes.replaceAll('\\(\n', '\n```latex\n');
+        // mes = mes.replaceAll('\n\\)', ' \n```');
+
+
+        // { left: '\[\n', right: '\n\]', display: true, asciimath: false },
+        // { left: '\(\n', right: '\n\)', display: true, asciimath: false },
+        // console.error({ mes })
+
         mes = converter.makeHtml(mes);
 
         mes = mes.replace(/<code(.*)>[\s\S]*?<\/code>/g, function (match) {
