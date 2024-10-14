@@ -748,7 +748,7 @@ export function reloadMarkdownProcessor(render_formulas = false) {
                     {
                         delimiters: [
                             { left: '$$', right: '$$', display: true, asciimath: false },
-                            { left: '$', right: '$', display: false, asciimath: true },
+                            // { left: '$', right: '$', display: false, asciimath: true },
                             { left: '\\\(', right: '\\\)', display: true, asciimath: false },
                             { left: '\\[', right: '\\]', display: true, asciimath: false },
                             // { left: '\[\n', right: '\n\]', display: true, asciimath: false },
